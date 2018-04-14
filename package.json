@@ -1,0 +1,37 @@
+{
+  "name": "magical-mixin",
+  "version": "0.1.0",
+  "description": "The only 100% typesafe class mixin for TypeScript",
+  "main": "dist/src/index.js",
+  "repository": "git@github.com:bcherny/magical-mixin.git",
+  "author": "Boris Cherny <boris@performancejs.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "npm run clean && npm run lint && tsc -d",
+    "clean": "shx rm -rf dist",
+    "lint": "tslint -p tsconfig.json src/**/*",
+    "prepublishOnly": "npm run build",
+    "pretest": "npm run build",
+    "tdd": "concurrently -k \"tsc -w\" \"ava -w\"",
+    "test": "ava && npm run test0 && npm run test1 && npm run test2",
+    "test0": "tsc test/fail0.ts | grep 'Methods<\"a\">'",
+    "test1": "tsc test/fail1.ts | grep 'Methods<\"b\">'",
+    "test2": "tsc test/fail2.ts | grep 'Methods<\"a\">'"
+  },
+  "devDependencies": {
+    "ava": "^0.25.0",
+    "shx": "^0.2.2",
+    "tslint": "^5.9.1",
+    "typescript": "^2.8.1"
+  },
+  "keywords": ["mixin", "trait", "inherit", "extend", "safe", "typesafe", "typescript"],
+  "ava": {
+    "files": [
+      "./dist/test/test.js"
+    ],
+    "source": [
+      "./dist/src/*.js"
+    ],
+    "verbose": true
+  }
+}
